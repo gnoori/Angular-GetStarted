@@ -8,21 +8,18 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './home/welcome.component';
 import { RouterModule } from '@angular/router';
 import { ProductModule } from './product-list/product.module';
+import { PageNotFoundComponent } from './page-not-found.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    WelcomeComponent,
-  ],
+  declarations: [AppComponent, WelcomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot([
-      
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-      { path: '**', redirectTo: 'welcome', pathMatch: 'full' },
+      { path: '**', component: PageNotFoundComponent },
     ]),
     ProductModule,
   ],
