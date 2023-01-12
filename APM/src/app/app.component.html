@@ -3,7 +3,9 @@
   <ul class="nav nav-pills">
     <li><a class="nav-link" [routerLink]="['/welcome']">Home</a></li>
     <li><a class="nav-link" [routerLink]="['/products']">Product List</a></li>
-    <li><a class="nav-link" [routerLink]="['/products']">Add product</a></li>
+    <li>
+      <a class="nav-link" [routerLink]="['/products', 0, 'edit']">Add product</a>
+    </li>
   </ul>
   <ul class="navbar-nav ml-auto">
     <li class="nav-item" *ngIf="isLoggedIn">

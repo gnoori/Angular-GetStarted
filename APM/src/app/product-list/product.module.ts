@@ -27,6 +27,7 @@ import { ProductInfoTagsComponent } from './product-edit/product-info-tags.compo
         canActivate: [ProductDetailGuard],
         component: ProductDetailComponent,
       },
+      { path: 'products/:id/edit', component: ProductEditComponent },
     ]),
     SharedModule,
   ],

@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
 import { UserModule } from './user/user.module';
 import { MessageModule } from './messages/message.module';
 import { ProductData } from './product-list/product-data';
+import { ProductDetailComponent } from './product-list/product-detail.component';
 
 @NgModule({
   declarations: [AppComponent, WelcomeComponent, PageNotFoundComponent],

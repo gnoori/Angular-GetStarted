@@ -91,6 +91,7 @@ export class ProductService {
       productName: '',
       productCode: '',
       category: '',
+      tags: [],
       releaseDate: '',
       price: 0,
       description: '',
