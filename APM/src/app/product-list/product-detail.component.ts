@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IProduct } from './product';
+
+import { IProduct, ProductResolved } from './product';
 import { ProductService } from '../product.service';
 
 @Component({
-  selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent implements OnInit {
-  pageTitle: string = 'Product Detail';
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private productService: ProductService
-  ) {}
+  pageTitle = 'Product';
   product: IProduct | null = null;
   errorMessage = '';
 
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.pageTitle += `: ${id}`;
+    this.getProduct(id);
   }
-
-  getProduct(id: number) {
+  getProduct(id: number): void {
     this.productService.getProduct(id).subscribe({
       next: (product) => this.onProductRetrieved(product),
       error: (err) => (this.errorMessage = err),
@@ -38,8 +38,5 @@ export class ProductDetailComponent implements OnInit {
     } else {
       this.pageTitle = 'No product found';
     }
-  }
-  onBack(): void {
-    this.router.navigate(['/products']);
   }
 }

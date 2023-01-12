@@ -39,7 +39,7 @@ export class ProductService {
   createProduct(product: IProduct): Observable<IProduct> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     // Required for the in memory web API to assign a unique id
-    product.productId = null;
+    product.id = null;
     return this.http
       .post<IProduct>(this.productsUrl, product, { headers })
       .pipe(
@@ -59,9 +59,9 @@ export class ProductService {
 
   updateProduct(product: IProduct): Observable<IProduct> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.productsUrl}/${product.productId}`;
+    const url = `${this.productsUrl}/${product.id}`;
     return this.http.put<IProduct>(url, product, { headers }).pipe(
-      tap(() => console.log('updateProduct: ' + product.productId)),
+      tap(() => console.log('updateProduct: ' + product.id)),
       // Return the product on an update
       map(() => product),
       catchError(this.handleError)
@@ -87,7 +87,7 @@ export class ProductService {
   private initializeProduct(): IProduct {
     // Return an initialized object
     return {
-      productId: 0,
+      id: 0,
       productName: '',
       productCode: '',
       category: '',

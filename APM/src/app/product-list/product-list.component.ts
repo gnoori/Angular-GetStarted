@@ -4,11 +4,10 @@ import { IProduct } from './product';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent implements OnInit, OnDestroy {
+export class ProductListComponent implements OnInit {
   title: string = 'Product List';
   imgWidth: number = 20;
   imgMargin: number = 20;
@@ -54,8 +53,5 @@ export class ProductListComponent implements OnInit, OnDestroy {
       },
       error: (err) => (this.errorMessage = err),
     });
-  }
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
   }
 }
