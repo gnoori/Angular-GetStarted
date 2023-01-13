@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../product.service';
 import { IProduct } from './product';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './product-list.component.html',
@@ -13,7 +14,10 @@ export class ProductListComponent implements OnInit {
   imgMargin: number = 20;
   showImage: boolean = false;
   sub!: Subscription;
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private route: ActivatedRoute
+  ) {}
 
   private _filter: string = '';
   errorMessage = '';
@@ -24,8 +28,9 @@ export class ProductListComponent implements OnInit {
   //setter
   set filter(filterValue: string) {
     this._filter = filterValue;
-    console.log('In setter', filterValue);
-    this.filteredProducts = this.performFilter(filterValue);
+    this.filteredProducts = this.filter
+      ? this.performFilter(this.filter)
+      : this.products;
   }
   filteredProducts: IProduct[] = [];
 
@@ -33,8 +38,9 @@ export class ProductListComponent implements OnInit {
 
   performFilter(filterBy: string): IProduct[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.products.filter((product: IProduct) =>
-      product.productName.toLocaleLowerCase().includes(filterBy)
+    return this.products.filter(
+      (product: IProduct) =>
+        product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1
     );
   }
   onRatingClick(message: string): void {
@@ -46,10 +52,13 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filter = this.route.snapshot.queryParamMap.get('filterBy') || '';
+    this.showImage =
+      this.route.snapshot.queryParamMap.get('showImage') === 'true';
     this.sub = this.productService.getProducts().subscribe({
       next: (products) => {
         this.products = products;
-        this.filteredProducts = this.products;
+        this.filteredProducts = this.performFilter(this.filter);
       },
       error: (err) => (this.errorMessage = err),
     });
