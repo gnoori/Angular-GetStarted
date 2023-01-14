@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './home/welcome.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 
-@NgModule ({
+@NgModule({
   imports: [
     RouterModule.forRoot([
       { path: 'welcome', component: WelcomeComponent },
@@ -11,7 +11,6 @@ import { PageNotFoundComponent } from './page-not-found.component';
       { path: '**', component: PageNotFoundComponent },
     ]),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
 export class AppRoutingModule {}

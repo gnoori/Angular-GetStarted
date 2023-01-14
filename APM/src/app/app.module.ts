@@ -11,11 +11,13 @@ import { UserModule } from './user/user.module';
 import { MessageModule } from './messages/message.module';
 import { ProductData } from './product-list/product-data';
 import { ProductDetailComponent } from './product-list/product-detail.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, WelcomeComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
     ProductModule,

@@ -20,17 +20,14 @@ export class ProductDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.getProduct(id);
-  }
-  getProduct(id: number): void {
-    this.productService.getProduct(id).subscribe({
-      next: (product) => this.onProductRetrieved(product),
-      error: (err) => (this.errorMessage = err),
-    });
+    const resolvedData: ProductResolved =
+      this.route.snapshot.data['resolvedData'];
+    this.errorMessage = String(resolvedData.error);
+    this.onProductRetrieved(resolvedData.product);
+    console.log('error message', this.errorMessage);
   }
 
-  onProductRetrieved(product: IProduct): void {
+  onProductRetrieved(product: IProduct | null): void {
     this.product = product;
 
     if (this.product) {

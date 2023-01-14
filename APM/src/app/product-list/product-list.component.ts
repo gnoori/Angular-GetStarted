@@ -2,7 +2,19 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../product.service';
 import { IProduct } from './product';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { AppComponent } from '../app.component';
+import {
+  ActivatedRoute,
+  Router,
+  Event,
+  NavigationStart,
+  NavigationEnd,
+  NavigationError,
+  NavigationCancel,
+  ChildActivationStart,
+  RouterEvent,
+  ChildActivationEnd,
+} from '@angular/router';
 
 @Component({
   templateUrl: './product-list.component.html',
@@ -14,9 +26,11 @@ export class ProductListComponent implements OnInit {
   imgMargin: number = 20;
   showImage: boolean = false;
   sub!: Subscription;
+
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   private _filter: string = '';
