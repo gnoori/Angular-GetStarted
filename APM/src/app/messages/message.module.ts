@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
   declarations: [MessageComponent],
   imports: [
   RouterModule.forChild([
-    { path: 'message', component: MessageComponent}
+    { path: 'message', component: MessageComponent, outlet: "popup"}
   ]),
   SharedModule,
 ],
