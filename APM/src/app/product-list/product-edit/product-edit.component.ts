@@ -12,8 +12,23 @@ import { ProductService } from '../../product.service';
 export class ProductEditComponent implements OnInit {
   pageTitle = 'Product Edit';
   errorMessage = '';
+  private currentProduct: IProduct | null = null;
+  private originalProduct: IProduct | null = null;
 
-  product: IProduct | null = null;
+  get isDirty(): boolean {
+    return (
+      JSON.stringify(this.originalProduct) !==
+      JSON.stringify(this.currentProduct)
+    );
+  }
+  get product(): IProduct | null {
+    return this.currentProduct;
+  }
+
+  set product(value: IProduct | null) {
+    this.currentProduct = value;
+    this.originalProduct = value ? { ...value } : null;
+  }
   private dataIsValid: { [key: string]: boolean } = {};
   constructor(
     private productService: ProductService,
@@ -71,6 +86,12 @@ export class ProductEditComponent implements OnInit {
     );
   }
 
+  reset(): void {
+    this.dataIsValid = {};
+    this.currentProduct = null;
+    this.originalProduct = null;
+  }
+
   saveProduct(): void {
     if (this.product && this.isValid()) {
       if (this.product.id === 0) {
@@ -99,7 +120,7 @@ export class ProductEditComponent implements OnInit {
     if (message) {
       this.messageService.addMessage(message);
     }
-
+    this.reset();
     this.router.navigate(['/products']);
   }
 
